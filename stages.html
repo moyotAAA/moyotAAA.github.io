@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Stages - Flip Card</title>
+    <style>
+        /* -----------------------------------------------------------
+           CSS : LE STYLE ET L'ANIMATION
+           ----------------------------------------------------------- */
+
+        /* Reset basique pour la page de démo */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Section principale */
+        .section-stages {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-stages h2 {
+            margin-bottom: 40px;
+            color: #333;
+            font-size: 2.5rem;
+        }
+
+        /* --- LA GRILLE (2x2 sur desktop) --- */
+        .stage-grid {
+            display: grid;
+            /* Crée des colonnes automatiques : min 300px, max 1 fraction de l'espace */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-items: center; /* Centre les cartes dans leurs cellules */
+        }
+
+        /* --- LA CARTE (Le conteneur 3D) --- */
+        .flip-card {
+            background-color: transparent;
+            width: 300px;
+            height: 350px; /* Hauteur de la carte */
+            perspective: 1000px; /* Donne la profondeur 3D */
+            cursor: pointer;
+        }
+
+        /* --- LE MOTEUR DE ROTATION --- */
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animation fluide */
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        /* L'action : Rotation au survol de la souris */
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* --- LES FACES (AVANT & ARRIÈRE) --- */
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Important pour Safari */
+            backface-visibility: hidden; /* Cache le dos de l'élément */
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box; /* Pour que le padding ne casse pas la taille */
+        }
+
+        /* --- DESIGN FACE AVANT --- */
+        .flip-card-front {
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #e1e1e1;
+        }
+
+        .flip-card-front img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid #f4f4f4;
+        }
+
+        .flip-card-front h3 {
+            margin: 10px 0 5px 0;
+            font-size: 1.5rem;
+        }
+
+        .flip-card-front p {
+            color: #777;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .flip-card-front .date {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #999;
+            background-color: #f9f9f9;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        /* --- DESIGN FACE ARRIÈRE --- */
+        .flip-card-back {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* Dégradé bleu pro */
+            color: white;
+            transform: rotateY(180deg); /* Elle est retournée par défaut */
+        }
+
+        .flip-card-back h3 {
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .flip-card-back p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        /* Le Bouton */
+        .btn-report {
+            background-color: #ffffff;
+            color: #1e3c72;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-report:hover {
+            background-color: #f1c40f; /* Jaune au survol */
+            color: #333;
+            transform: translateY(-3px); /* Petit effet de saut */
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="section-stages">
+        <h2>Mes Expériences Professionnelles</h2>
+        
+        <div class="stage-grid">
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://via.placeholder.com/150/0000FF/808080?text=Logo+Tech" alt="Logo">
+                        <h3>Tech Solutions</h3>
+                        <p>Développeur Web</p>
+                        <span class="date">Juin 2023 - Aout 2023</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Détails du stage</h3>
+                        <p>Création d'une application interne en React et optimisation des requêtes SQL.</p>
+                        <a href="rapports/rapport-tech.pdf" target="_blank" class="btn-report">
+                            Voir le Compte Rendu
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://via.placeholder.com/150/FF0000/FFFFFF?text=Logo+Bank" alt="Logo">
+                        <h3>Banque Populaire</h3>
+                        <p>Assistant MOA</p>
+                        <span class="date">Jan 2023 - Mars 2023</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Détails du stage</h3>
+                        <p>Rédaction de cahiers des charges et tests unitaires sur le logiciel bancaire.</p>
+                        <a href="rapports/rapport-banque.pdf" target="_blank" class="btn-report">
+                            Voir le Compte Rendu
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://via.placeholder.com/150/FFFF00/000000?text=Logo+Start" alt="Logo">
+                        <h3>Green Startup</h3>
+                        <p>Data Analyst</p>
+                        <span class="date">Sept 2022 - Dec 2022</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Détails du stage</h3>
+                        <p>Analyse des KPI environnementaux et visualisation de données avec Python.</p>
+                        <a href="rapports/rapport-startup.pdf" target="_blank" class="btn-report">
+                            Voir le Compte Rendu
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://via.placeholder.com/150/008000/FFFFFF?text=Logo+Consult" alt="Logo">
+                        <h3>Consulting Corp</h3>
+                        <p>Support IT</p>
+                        <span class="date">Juin 2022 - Aout 2022</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Détails du stage</h3>
+                        <p>Installation de postes de travail et gestion du réseau local.</p>
+                        <a href="rapports/rapport-consulting.pdf" target="_blank" class="btn-report">
+                            Voir le Compte Rendu
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>
