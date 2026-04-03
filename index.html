@@ -126,6 +126,17 @@
             margin-bottom: 20px; line-height: 1.1; transition: all 0.5s ease;
         }
 
+        #typed-text {
+            border-right: 4px solid var(--accent-blue);
+            padding-right: 6px;
+            animation: blink-cursor 0.65s steps(1) infinite;
+        }
+
+        @keyframes blink-cursor {
+            0%, 100% { border-color: var(--accent-blue); }
+            50% { border-color: transparent; }
+        }
+
         .hero-sub { font-size: 1.4rem; color: var(--text-secondary); max-width: 700px; margin-bottom: 40px; transition: color 0.5s ease;}
 
         /* --- GRID SYSTEM --- */
@@ -255,7 +266,7 @@
 
     <header>
         <div class="tag-pill">BTS SIO • SISR</div>
-        <h1>AYOUB LE MAROCAIN</h1>
+        <h1>AYOUB <span id="typed-text"></span></h1>
         <p class="hero-sub">Infrastructures Réseaux • Cybersécurité • Développement.<br>Rigueur mathématique appliquée aux systèmes complexes.</p>
         <a href="#documents" class="btn-main">Télécharger CV</a>
     </header>
@@ -519,6 +530,47 @@
         function closeModal() {
             modal.style.display = "none";
         }
+
+        // --- TYPEWRITER SYSADMIN ---
+        const sysadminTitles = [
+            'LE ROOT',
+            'LE SYSADMIN',
+            'LE SUDOER',
+            "L'ADMIN SYS",
+            'LE PENTESTEUR',
+            'LE DEVOPS',
+            "L'ARCHITECTE RÉSEAU",
+            'LE DHCPISTE',
+            'LE NETADMIN',
+        ];
+
+        let twIndex = 0;
+        let twText = '';
+        let twDeleting = false;
+        const typedEl = document.getElementById('typed-text');
+
+        function typeWriter() {
+            const target = sysadminTitles[twIndex];
+            if (!twDeleting) {
+                twText = target.substring(0, twText.length + 1);
+            } else {
+                twText = target.substring(0, twText.length - 1);
+            }
+            typedEl.textContent = twText;
+
+            let delay = twDeleting ? 70 : 110;
+            if (!twDeleting && twText === target) {
+                delay = 2200;
+                twDeleting = true;
+            } else if (twDeleting && twText === '') {
+                twDeleting = false;
+                twIndex = (twIndex + 1) % sysadminTitles.length;
+                delay = 350;
+            }
+            setTimeout(typeWriter, delay);
+        }
+
+        typeWriter();
     </script>
 </body>
 </html>
